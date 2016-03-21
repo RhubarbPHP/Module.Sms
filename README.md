@@ -1,2 +1,2 @@
-# Module.TextMarketerSms
-Provides an SMSProvider for TextMarketer
+# Module.Sms
+Provides SMS support
