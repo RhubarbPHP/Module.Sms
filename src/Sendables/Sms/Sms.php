@@ -9,6 +9,8 @@ abstract class Sms extends Sendable
 {
     private $recipients = [];
 
+    private $sender;
+
     /**
      * Called when sending occurs providing an opportunity to log the event.
      * @return mixed
@@ -57,6 +59,27 @@ abstract class Sms extends Sendable
         }
 
         return $this->recipients;
+    }
+
+    /**
+     * @return SmsNumber
+     */
+    public function getSender()
+    {
+        if ($this->sender == null) {
+            $smsSettings = new SmsSettings();
+
+            return $smsSettings->DefaultSender;
+        }
+
+        return $this->sender;
+    }
+
+    public function setSender($senderNumber, $name = "")
+    {
+        $this->sender = new SmsNumber($senderNumber, $name);
+
+        return $this;
     }
 
     public function getSendableType()
