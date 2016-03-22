@@ -15,7 +15,7 @@ class SimpleSms extends Sms
 
     public function getText()
     {
-        return $this->getText();
+        return $this->text;
     }
 
     public function toArray()
