@@ -2,9 +2,10 @@
 
 namespace Rhubarb\Sms\Sendables\Sms;
 
+use Rhubarb\Crown\Sendables\SendableRecipient;
 use Rhubarb\Sms\Exceptions\SmsException;
 
-class SmsNumber
+class SmsRecipient extends SendableRecipient
 {
     /**
      * @var string The sms number e.g. +447710123123
@@ -27,5 +28,14 @@ class SmsNumber
         if ($name != "") {
             $this->name = $name;
         }
+    }
+
+    public function __toString()
+    {
+        if ($this->name) {
+            return '"' . $this->name . '" <' . $this->number . '>';
+        }
+
+        return $this->number;
     }
 }

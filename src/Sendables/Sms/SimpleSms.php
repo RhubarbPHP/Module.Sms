@@ -46,7 +46,7 @@ class SimpleSms extends Sms
         $email = new SimpleSMS();
 
         foreach ($data["recipients"] as $recipient) {
-            $email->addRecipient($recipient["number"], $recipient["name"]);
+            $email->addRecipientByNumber($recipient["number"], $recipient["name"]);
         }
 
         $email->setText($data["text"]);

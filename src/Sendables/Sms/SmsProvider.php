@@ -2,25 +2,11 @@
 
 namespace Rhubarb\Sms\Sendables\Sms;
 
+use Rhubarb\Crown\DependencyInjection\ProviderInterface;
+use Rhubarb\Crown\DependencyInjection\ProviderTrait;
 use Rhubarb\Crown\Sendables\SendableProvider;
 
-abstract class SmsProvider extends SendableProvider
+abstract class SmsProvider extends SendableProvider implements ProviderInterface
 {
-    private static $defaultSMSProviderClassName = '\Rhubarb\Crown\Sendables\SMS\PhpSMSProvider';
-
-    public static function setDefaultSMSProviderClassName($smsProviderClassName)
-    {
-        self::$defaultSMSProviderClassName = $smsProviderClassName;
-    }
-
-    /**
-     * Returns an instance of the default email provider
-     *
-     * @return SMSProvider
-     */
-    public static function getDefaultProvider()
-    {
-        $class = self::$defaultSMSProviderClassName;
-        return new $class();
-    }
+    use ProviderTrait;
 }

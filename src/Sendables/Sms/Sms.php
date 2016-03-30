@@ -7,8 +7,6 @@ use Rhubarb\Crown\Sendables\Sendable;
 
 abstract class Sms extends Sendable
 {
-    private $recipients = [];
-
     private $sender;
 
     /**
@@ -28,14 +26,19 @@ abstract class Sms extends Sendable
         );
     }
 
-    protected function getProviderClassName()
+    public function getRecipientList()
+    {
+        return implode(", ", $this->getRecipients());
+    }
+
+    public function getProviderClassName()
     {
         return SMSProvider::class;
     }
 
-    public function addRecipient($recipientNumber, $recipientName = "")
+    public function addRecipientByNumber($recipientNumber, $recipientName = "")
     {
-        $this->recipients[$recipientNumber] = new SMSNumber($recipientNumber, $recipientName);
+        $this->addRecipient(new SmsRecipient($recipientNumber, $recipientName));
 
         return $this;
     }
@@ -51,25 +54,25 @@ abstract class Sms extends Sendable
 
     public function getRecipients()
     {
-        $smsSettings = new SMSSettings();
+        $smsSettings = SmsSettings::singleton();
 
-        if ($smsSettings->OnlyRecipient) {
+        if ($smsSettings->onlyRecipient) {
             //  Only send sms to a test recipient, to prevent sending sms messages to real customers from a development environment
-            return [$smsSettings->OnlyRecipient];
+            return [$smsSettings->onlyRecipient];
         }
 
         return $this->recipients;
     }
 
     /**
-     * @return SmsNumber
+     * @return SmsRecipient
      */
     public function getSender()
     {
         if ($this->sender == null) {
-            $smsSettings = new SmsSettings();
+            $smsSettings = SmsSettings::singleton();
 
-            return $smsSettings->DefaultSender;
+            return $smsSettings->defaultSender;
         }
 
         return $this->sender;
@@ -77,7 +80,7 @@ abstract class Sms extends Sendable
 
     public function setSender($senderNumber, $name = "")
     {
-        $this->sender = new SmsNumber($senderNumber, $name);
+        $this->sender = new SmsRecipient($senderNumber, $name);
 
         return $this;
     }
