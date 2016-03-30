@@ -6,7 +6,7 @@ use Codeception\TestCase;
 use Rhubarb\Sms\Exceptions\SMSException;
 use Rhubarb\Sms\Sendables\Sms\SmsRecipient;
 
-class SmsNumberTest extends TestCase\Test
+class SmsRecipientTest extends TestCase\Test
 {
     public function testCreation()
     {
