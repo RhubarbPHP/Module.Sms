@@ -16,7 +16,7 @@
     }
   },
   "require": {
-    "rhubarbphp/rhubarb": "feature/ApplicationObject"
+    "rhubarbphp/rhubarb": "dev-feature/ApplicationObject"
   },
   "require-dev": {
     "codeception/codeception": "*"
