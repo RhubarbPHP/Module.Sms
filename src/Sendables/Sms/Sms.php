@@ -24,6 +24,8 @@ abstract class Sms extends Sendable
             "Sms",
             "\r\n\r\n" . $text
         );
+
+        return;
     }
 
     public function getRecipientList()
